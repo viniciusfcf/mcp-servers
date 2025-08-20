@@ -9,4 +9,6 @@ public interface ChatService {
     @McpToolBox
     public String chat(String message);
 
+    public String chatWithoutTools(String message);
+
 }

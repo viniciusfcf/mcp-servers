@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ChatGPT-like Chat</title>
+  <title>Agent Chat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -140,6 +140,10 @@
     <div class="chat-messages" id="chat-messages"></div>
     <form class="chat-input-container" id="chat-form">
       <textarea class="chat-input" id="chat-input" rows="1" placeholder="Send a message..." autocomplete="off"></textarea>
+      <label style="display:flex;align-items:center;gap:6px;">
+        <input type="checkbox" id="with-tools" style="accent-color:#19c37d;">
+        With Tools
+      </label>
       <button type="submit" class="send-btn">Send</button>
     </form>
   </div>
@@ -169,11 +173,12 @@
     // Sends message to endpoint
     async function sendMessageToEndpoint(message) {
       const endpoint = endpointInput.value || 'http://localhost:8080/chat';
+      const withTools = document.getElementById('with-tools').checked;
       try {
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({message})
+          body: JSON.stringify({message, withTools})
         });
         if (!res.ok) throw new Error('Network error');
         const data = await res.json();

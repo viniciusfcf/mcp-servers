@@ -15,6 +15,9 @@ public class ChatResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public ChatMessage chat(ChatMessage userMessage) {
-        return ChatMessage.of(chatService.chat(userMessage.getMessage()));
+        if(userMessage.getWithTools() != null && userMessage.getWithTools()) {
+            return ChatMessage.of(chatService.chat(userMessage.getMessage()));
+        }
+        return ChatMessage.of(chatService.chatWithoutTools(userMessage.getMessage()));
     }
 }
