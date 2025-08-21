@@ -135,7 +135,7 @@
     </div>
     <div class="endpoint-config">
       <label for="endpoint">Chat Endpoint:</label>
-      <input id="endpoint" class="endpoint-input" value="http://localhost:8080/chat" />
+  <input id="endpoint" class="endpoint-input" />
     </div>
     <div class="chat-messages" id="chat-messages"></div>
     <form class="chat-input-container" id="chat-form">
@@ -152,7 +152,9 @@
     const chatForm = document.getElementById('chat-form');
     const chatInput = document.getElementById('chat-input');
     const chatMessages = document.getElementById('chat-messages');
-    const endpointInput = document.getElementById('endpoint');
+  const endpointInput = document.getElementById('endpoint');
+  // Set default endpoint to current host + /chat
+  endpointInput.value = window.location.origin + '/chat';
 
     // Keeps track of messages
     let messages = [];
